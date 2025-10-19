@@ -30,7 +30,9 @@ export const postCategories = pgTable("post_categories", {
   post_id: integer("post_id")
     .references(() => posts.id)
     .notNull(),
-  categories_id: integer("categories_id")
+  category_id: integer("category_id")
     .references(() => categories.id)
     .notNull(),
+  created_at: timestamp("created_at").defaultNow().notNull(),
+  updated_at: timestamp("updated_at").defaultNow().notNull(),
 });
