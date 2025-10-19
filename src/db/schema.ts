@@ -17,3 +17,20 @@ export const posts = pgTable("posts", {
   created_at: timestamp("created_at").defaultNow().notNull(),
   updated_at: timestamp("updated_at").defaultNow().notNull(),
 });
+
+export const categories = pgTable("categories", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 100 }).notNull().unique(),
+  slug: varchar("slug", { length: 100 }).notNull().unique(),
+  description: text("description"),
+});
+
+export const postCategories = pgTable("post_categories", {
+  id: serial("id").primaryKey(),
+  post_id: integer("post_id")
+    .references(() => posts.id)
+    .notNull(),
+  categories_id: integer("categories_id")
+    .references(() => categories.id)
+    .notNull(),
+});
